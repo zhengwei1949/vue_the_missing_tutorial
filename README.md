@@ -15,3 +15,4 @@
 - https://github.com/answershuto/learnVue/blob/master/docs/Vue组件间通信.MarkDown
 - https://www.cnblogs.com/answershuto/p/7711750.html
 - https://www.cnblogs.com/frank26/p/6156378.html
+- https://www.jianshu.com/p/bf3bc4a9cd0d
