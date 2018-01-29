@@ -12,3 +12,4 @@
 
 # 参考
 - https://stackoverflow.com/questions/46044651/vue-js-dynamic-two-way-data-binding-between-parent-and-child-components#
+- https://github.com/answershuto/learnVue/blob/master/docs/Vue组件间通信.MarkDown
