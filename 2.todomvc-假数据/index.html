@@ -109,9 +109,13 @@
 					if (!binding.value) {
 						return;
 					}
-					Vue.nextTick(function () {
-						el.focus();
-					});
+					// Vue.nextTick(function () {
+					// 	el.focus();
+					// });
+					//上面这种方式和下面这种方式都是ok的
+					setTimeout(function(){
+						el.focus()
+					},20)
 				}
 			}
 		}
