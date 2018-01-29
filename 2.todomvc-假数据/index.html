@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Vue.js-todomvc</title>
+	<link rel="stylesheet" href="libs/index.css">
+</head>
+<body>
+	<section class="todoapp">
+		<header class="header">
+			<h1>todos</h1>
+			<input class="new-todo" autofocus autocomplete="off" placeholder="What needs to be done?" v-model="newTodo" @keyup.enter="addTodo">
+		</header>
+		<section class="main">
+			<input class="toggle-all" type="checkbox" @change="toggleAll" v-model="toggle">
+			<ul class="todo-list">
+				<li :class="{completed:item.completed,editing:index==editId}" v-for="(item,index) in myTodos" :key="index">
+					<div class="view" @dblclick="editTodo(index)">
+						<input class="toggle" type="checkbox" v-model="item.completed">
+						<label>{{item.name}}</label>
+						<button class="destroy" @click="removeItem(index)"></button>
+					</div>
+					<input class="edit" type="text" v-model="item.name" v-focus="editId==index" @blur="doneEdit">
+				</li>
+			</ul>
+		</section>
+		<footer class="footer">
+			<span class="todo-count">
+				<strong>{{num}}</strong>item left
+			</span>
+			<ul class="filters">
+				<li ><a :class="{selected:(status=='#/all' || status == '')}" href="#/all">All</a></li>
+				<li><a :class="{selected:status=='#/active'}" href="#/active">Active</a></li>
+				<li><a :class="{selected:status=='#/completed'}" href="#/completed">Completed</a></li>
+			</ul>
+			<button class="clear-completed" @click="clearCompleted">
+				Clear completed
+			</button>
+		</footer>
+	</section>
+	<footer class="info">
+		<p>Double-click to edit a todo</p>
+		<p>Written by <a href="http://evanyou.me">Evan You</a></p>
+		<p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
+	</footer>
+	<script src="./libs/vue.js"></script>
+	<script>
+	var vm = new Vue({
+		el: '.todoapp',
+		data: {
+			todos: [
+				{name:'吃饭',completed:false},
+				{name:'睡觉',completed:true},
+				{name:'打豆豆',completed:false}
+			],
+			newTodo:'',
+			toggle:false,
+			editId:-1,
+			status:location.hash
+		},
+		computed:{
+			num:function(){
+				return this.todos.filter(function(item){return item.completed==false}).length;
+			},
+			myTodos:function(){
+				switch(this.status){
+					case "#/active": 
+						return this.todos.filter(function(item){return item.completed == false});
+					case '#/completed': 
+						return this.todos.filter(function(item){return item.completed == true});
+					default: 
+						return this.todos;
+				}
+			}
+		},
+		//自定义相关处理方法
+		methods: {
+			addTodo: function () {
+				//this指Vue实例，他同时代理了data对象
+				var value = this.newTodo && this.newTodo.trim();
+				//如果值 为空，则不进行任何操作
+				if (!value) {
+					return false;
+				}
+				this.todos.push({ name: value, completed: false });
+				this.newTodo = '';
+			},
+			removeItem:function(index){
+				this.todos.splice(index,1)
+			},
+			toggleAll:function(){
+				var toggle = this.toggle;
+				this.todos = this.todos.map(function(item){item.completed = toggle;return item;})
+			},
+			editTodo:function(index){
+				// console.log(index)
+				this.editId = index
+			},
+			doneEdit:function(){
+				this.editId = -1
+			},
+			clearCompleted:function(){
+				this.todos = this.todos.filter(function(item){return item.completed==false})
+			}
+		},
+		directives: {
+			'focus': {
+				update: function (el,binding) {
+					if (!binding.value) {
+						return;
+					}
+					Vue.nextTick(function () {
+						el.focus();
+					});
+				}
+			}
+		}
+	})
+
+	window.addEventListener('hashchange',function(){
+		vm.status = location.hash;
+	})
+
+	</script>
+</body>
+</html>

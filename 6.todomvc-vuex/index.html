@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Vue.js-todomvc</title>
+	<link rel="stylesheet" href="libs/index.css">
+</head>
+<body>
+	<section class="todoapp">
+		<header class="header">
+			<h1>todos</h1>
+			<input class="new-todo" autofocus autocomplete="off" placeholder="What needs to be done?" >
+		</header>
+		<section class="main">
+			<input class="toggle-all" type="checkbox">
+			<ul class="todo-list">
+				<li class="todo">
+					<div class="view">
+						<input class="toggle" type="checkbox">
+						<label>todo.title</label>
+						<button class="destroy" ></button>
+					</div>
+					<input class="edit" type="text">
+				</li>
+			</ul>
+		</section>
+		<footer class="footer">
+			<span class="todo-count">
+				<strong>10</strong>item left
+			</span>
+			<ul class="filters">
+				<li><a href="#/all">All</a></li>
+				<li><a href="#/active">Active</a></li>
+				<li><a href="#/completed">Completed</a></li>
+			</ul>
+			<button class="clear-completed">
+				Clear completed
+			</button>
+		</footer>
+	</section>
+	<footer class="info">
+		<p>Double-click to edit a todo</p>
+		<p>Written by <a href="http://evanyou.me">Evan You</a></p>
+		<p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
+	</footer>
+	<script src="./libs/vue.js"></script>
+	<script>
+	var storage = {
+		fetch: function () {
+			return JSON.parse(localStorage.getItem('mytodo') || '[]');
+		},
+		get: function (todos) {
+			localStorage.setItem('mytodo', JSON.stringify(todos));
+		}
+	}
+
+	var vm = new Vue({
+		el: '.todoapp',
+		data: {
+			todos: todoStorage.fetch(),
+		},
+		//自定义相关处理方法
+		methods: {
+			addTodo: function () {
+				//this指Vue实例，他同时代理了data对象
+				var value = this.newTodo && this.newTodo.trim();
+				//如果值 为空，则不进行任何操作
+				if (!value) {
+					return false;
+				}
+				this.todos.push({ title: value, completed: false });
+				this.newTodo = '';
+			}
+		}
+	})
+
+
+	</script>
+</body>
+</html>
