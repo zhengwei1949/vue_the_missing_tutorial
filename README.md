@@ -9,3 +9,6 @@
 - webpack
 - 组件间通信
 - vuex
+
+# 参考
+- https://stackoverflow.com/questions/46044651/vue-js-dynamic-two-way-data-binding-between-parent-and-child-components#
