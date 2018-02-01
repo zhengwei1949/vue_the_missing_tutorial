@@ -16,3 +16,8 @@
 - https://www.cnblogs.com/answershuto/p/7711750.html
 - https://www.cnblogs.com/frank26/p/6156378.html
 - https://www.jianshu.com/p/bf3bc4a9cd0d
+
+
+# 需要参考的文档
+- https://cn.vuejs.org/v2/guide/components.html#sync-%E4%BF%AE%E9%A5%B0%E7%AC%A6
+- https://cn.vuejs.org/v2/guide/components.html#%E9%9D%9E%E7%88%B6%E5%AD%90%E7%BB%84%E4%BB%B6%E7%9A%84%E9%80%9A%E4%BF%A1
